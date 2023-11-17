@@ -1,0 +1,7 @@
+[user]
+	name = notmde
+	email = 99078610+notmde@users.noreply.github.com
+
+[core]
+	sshCommand = "ssh -i ~/.ssh/notmde_github_sshkey"
+
