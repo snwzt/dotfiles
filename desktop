@@ -11,11 +11,9 @@ mkdir -p $HOME/.local/bin
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub org.gnome.Loupe org.gnome.World.Secrets org.gnome.clocks com.github.tchx84.Flatseal \
-	io.github.seadve.Kooha io.bassi.Amberol org.gnome.Calculator org.gnome.Calendar org.gnome.Evince org.gnome.Boxes \
-	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.libreoffice.LibreOffice de.haeckerfelix.Fragments \
-	com.github.taiko2k.avvie org.prismlauncher.PrismLauncher org.telegram.desktop io.github.spacingbat3.webcord \
-	md.obsidian.Obsidian  
+flatpak install -y flathub io.github.seadve.Kooha io.bassi.Amberol org.prismlauncher.PrismLauncher \
+	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.telegram.desktop \
+	io.github.spacingbat3.webcord md.obsidian.Obsidian  
 
 gnome-extensions disable background-logo@fedorahosted.org
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com

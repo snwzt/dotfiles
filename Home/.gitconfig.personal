@@ -1,7 +1,7 @@
 [user]
 	name = snwzt
 	email = 145876397+snwzt@users.noreply.github.com
-	signingKey = C055460B0D29B1EC
+	signingKey = A90F1C8515841077
 
 [commit]
 	gpgsign = true

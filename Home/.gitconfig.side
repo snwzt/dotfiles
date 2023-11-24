@@ -4,4 +4,3 @@
 
 [core]
 	sshCommand = "ssh -i ~/.ssh/notmde_github_sshkey"
-
