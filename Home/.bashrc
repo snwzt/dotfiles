@@ -28,4 +28,4 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
 source <(kind completion bash)
-# source <(kubectl completion bash)
+source <(kubectl completion bash)

@@ -13,7 +13,7 @@ flatpak remote-modify flathub --enable
 
 flatpak install -y flathub io.github.seadve.Kooha io.bassi.Amberol org.prismlauncher.PrismLauncher \
 	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.telegram.desktop \
-	io.github.spacingbat3.webcord md.obsidian.Obsidian  
+	io.github.spacingbat3.webcord md.obsidian.Obsidian com.valvesoftware.Steam
 
 gnome-extensions disable background-logo@fedorahosted.org
 gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
@@ -34,6 +34,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>s
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>d']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>f']"
 gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift><Super>f']"
 
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.desktop.interface show-battery-percentage true
@@ -43,6 +44,7 @@ gsettings set org.gnome.shell.extensions.just-perfection search false
 
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
 gsettings set org.gnome.desktop.interface font-name 'Inter 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Semi-Bold 11'
