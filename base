@@ -22,7 +22,7 @@ dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 dnf swap --best --allowerasing -y ffmpeg-free ffmpeg
 
 dnf install -y adw-gtk3-theme easyeffects gnome-tweaks papirus-icon-theme brave-browser gnome-shell-extension-appindicator \
-	gnome-shell-extension-just-perfection rsms-inter-fonts htop yt-dlp opus-tools p7zip p7zip-plugins celluloid transmission-gtk \
-	secrets gnome-boxes flatseal gimp iosevka-fonts
+	gnome-shell-extension-just-perfection htop opus-tools p7zip p7zip-plugins mpv transmission-gtk secrets gnome-boxes \
+	flatseal gimp
 
-dnf install -y code g++ stow awscli2 golang
+dnf install -y code iosevka-fonts stow awscli2
