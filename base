@@ -21,8 +21,10 @@ dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
 dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 dnf swap --best --allowerasing -y ffmpeg-free ffmpeg
 
+# general
 dnf install -y adw-gtk3-theme easyeffects gnome-tweaks papirus-icon-theme brave-browser gnome-shell-extension-appindicator \
 	gnome-shell-extension-just-perfection htop opus-tools p7zip p7zip-plugins mpv transmission-gtk secrets gnome-boxes \
-	flatseal gimp
+	flatseal gimp mpv-mpris
 
-dnf install -y code iosevka-fonts stow awscli2
+# dev
+dnf install -y code make iosevka-fonts stow awscli2

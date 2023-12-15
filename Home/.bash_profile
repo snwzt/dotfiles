@@ -18,5 +18,4 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 
 # addn fix
 export HISTFILE="$XDG_STATE_HOME"/bash/history
-export PYTHONPYCACHEPREFIX=$XDG_CACHE_HOME/python
-export PYTHONUSERBASE=$XDG_DATA_HOME/python
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"

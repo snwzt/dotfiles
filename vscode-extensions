@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pkglist=(
+    golang.go
+    DavidAnson.vscode-markdownlint
+)
+
+for i in ${pkglist[@]}; do
+    code --install-extension $i
+done
