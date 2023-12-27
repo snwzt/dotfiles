@@ -8,5 +8,6 @@
     "window.titleBarStyle": "custom",
     "editor.minimap.enabled": false,
     "workbench.startupEditor": "none",
-    "workbench.colorTheme": "Default Light Modern"
+    "explorer.confirmDragAndDrop": false,
+    "workbench.colorTheme": "Solarized Light"
 }
