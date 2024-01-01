@@ -5,26 +5,14 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm 
-dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-dnf copr enable -y peterwu/iosevka
+set -eux
 
-dnf remove -y firefox firefox-langpacks gnome-maps totem gnome-boxes gnome-weather gnome-tour cheese rhythmbox baobab gnome-connections \
-	gnome-logs mediawriter simple-scan gnome-contacts gnome-abrt gnome-classic-session gnome-characters gnome-font-viewer PackageKit-glib \
-	gnome-text-editor gnome-system-monitor gnome-software PackageKit PackageKit-gstreamer-plugin PackageKit-gtk3-module 
+# fonts
+curl https://copr.fedorainfracloud.org/coprs/peterwu/iosevka/repo/fedora-$(rpm -E %fedora)/peterwu-iosevka-fedora-$(rpm -E %fedora).repo > /etc/yum.repos.d/iosevka.repo
 
-dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-dnf swap --best --allowerasing -y ffmpeg-free ffmpeg
+# base removal
+rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree
 
-# general
-dnf install -y adw-gtk3-theme easyeffects gnome-tweaks papirus-icon-theme brave-browser gnome-shell-extension-appindicator \
-	gnome-shell-extension-just-perfection htop opus-tools p7zip p7zip-plugins mpv transmission-gtk secrets gnome-boxes \
-	flatseal gimp mpv-mpris
-
-# dev
-dnf install -y code make iosevka-fonts stow awscli2
+# base addition
+rpm-ostree install gnome-shell-extension-appindicator gnome-shell-extension-just-perfection distrobox \
+            adw-gtk3-theme easyeffects iosevka-fonts stow papirus-icon-theme

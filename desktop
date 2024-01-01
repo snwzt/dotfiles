@@ -5,36 +5,49 @@ if [ "$EUID" -eq 0 ]; then
 	exit 1
 fi
 
+set -eux
+
 mkdir -p $HOME/.local/state/bash
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.local/share/fonts
+touch $HOME/.config/wgetrc
 
-# font
-wget -qO $HOME/.local/share/fonts/product-sans.zip https://befonts.com/wp-content/uploads/2018/08/product-sans.zip
-unzip -q $HOME/.local/share/fonts/product-sans.zip -d $HOME/.local/share/fonts/product-sans/
-rm $HOME/.local/share/fonts/product-sans.zip
-fc-cache
+rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout $HOME/.bash_history
+mkdir -p $HOME/.config/VSCodium/User
 
-# kubectl
-curl -LO --output-dir $HOME/.local/bin "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" 
-chmod +x $HOME/.local/bin/kubectl
+# symlink configs
+stow Home -t ~/
 
 # asdf
 git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "https://api.github.com/repos/asdf-vm/asdf/releases/latest" | jq -r .tag_name)
-asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
+source $HOME/.bashrc
+asdf plugin add golang
+asdf plugin add kubectl
+asdf plugin add nodejs
 
 # golang
 asdf install golang latest
 asdf global golang latest
 
-# flatpak
+# kubectl
+asdf install kubectl latest
+asdf global kubectl latest
+
+# nodejs
+asdf install nodejs latest
+asdf global nodejs latest
+
+# flatpaks
+flatpak remove --all -y
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub io.github.seadve.Kooha io.bassi.Amberol org.prismlauncher.PrismLauncher \
+flatpak install -y flathub io.gitlab.librewolf-community org.gnome.World.Secrets \
+	org.gnome.Loupe io.github.seadve.Kooha io.bassi.Amberol org.prismlauncher.PrismLauncher \
 	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.telegram.desktop \
 	io.github.spacingbat3.webcord md.obsidian.Obsidian com.valvesoftware.Steam \
-	com.github.Anuken.Mindustry
+	org.gnome.Evince org.gnome.Boxes com.github.tchx84.Flatseal io.mpv.Mpv \
+	org.gnome.clocks org.gnome.Calendar 
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -66,10 +79,6 @@ gsettings set org.gnome.shell.extensions.just-perfection search false
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
-gsettings set org.gnome.desktop.interface font-name 'Product Sans 11'
-gsettings set org.gnome.desktop.interface document-font-name 'Product Sans 11'
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Product Sans Bold 11'
-
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
@@ -82,3 +91,6 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
 gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
 gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false
+
+# distroboxes
+distrobox create --image registry.fedoraproject.org/fedora-toolbox:39 --name devbx

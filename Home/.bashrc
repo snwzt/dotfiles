@@ -19,6 +19,13 @@ fi
 
 unset rc
 
+# add .local/bin to path
+export PATH="$HOME/.local/bin:$PATH"
+
+# asdf
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
 # git bash prompt
 export PS1='\u@\h \W $(if [ -n "$(git rev-parse --show-toplevel 2>/dev/null)" ]; then echo -n "$(if [ -n "$(git config --get user.name)" ]; then echo -n "($(git config --get user.name)) "; fi)$(__git_ps1 "(%s) ")"; fi)'
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -31,7 +38,3 @@ alias wget=wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
 source <(kubectl completion bash)
-
-# asdf
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
