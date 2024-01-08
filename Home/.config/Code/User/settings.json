@@ -2,6 +2,7 @@
     "editor.fontFamily": "Iosevka",
     "editor.fontSize": 18,
     "terminal.integrated.fontSize": 18,
+    "editor.fontLigatures": true,
     "breadcrumbs.enabled": false,
     "window.menuBarVisibility": "toggle",
     "window.dialogStyle": "custom",
@@ -9,5 +10,6 @@
     "editor.minimap.enabled": false,
     "workbench.startupEditor": "none",
     "explorer.confirmDragAndDrop": false,
-    "workbench.colorTheme": "Default Light Modern"
+    "workbench.colorTheme": "Everforest Dark",
+    "workbench.iconTheme": "material-icon-theme"
 }

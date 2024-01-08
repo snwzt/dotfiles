@@ -9,32 +9,41 @@ set -eux
 
 mkdir -p $HOME/.local/state/bash
 mkdir -p $HOME/.local/bin
-touch $HOME/.config/wgetrc
-
+mkdir -p $HOME/.config/Code/User
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout $HOME/.bash_history
-mkdir -p $HOME/.config/VSCodium/User
 
 # symlink configs
 stow Home -t ~/
 
 # asdf
 git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "https://api.github.com/repos/asdf-vm/asdf/releases/latest" | jq -r .tag_name)
-source $HOME/.bashrc
+
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
 asdf plugin add golang
 asdf plugin add kubectl
 asdf plugin add nodejs
 
-# golang
 asdf install golang latest
 asdf global golang latest
 
-# kubectl
 asdf install kubectl latest
 asdf global kubectl latest
 
-# nodejs
 asdf install nodejs latest
 asdf global nodejs latest
+
+# vscode extensions
+pkglist=(
+    golang.go
+	sainnhe.everforest
+	pkief.material-icon-theme
+)
+
+for i in ${pkglist[@]}; do
+    code --install-extension $i
+done
 
 # flatpaks
 flatpak remove --all -y
@@ -42,12 +51,11 @@ flatpak remove --all -y
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub io.gitlab.librewolf-community org.gnome.World.Secrets \
-	org.gnome.Loupe io.github.seadve.Kooha io.bassi.Amberol org.prismlauncher.PrismLauncher \
-	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.telegram.desktop \
-	io.github.spacingbat3.webcord md.obsidian.Obsidian com.valvesoftware.Steam \
-	org.gnome.Evince org.gnome.Boxes com.github.tchx84.Flatseal io.mpv.Mpv \
-	org.gnome.clocks org.gnome.Calendar 
+flatpak install -y flathub org.chromium.Chromium org.telegram.desktop io.github.spacingbat3.webcord \
+	com.valvesoftware.Steam org.prismlauncher.PrismLauncher io.bassi.Amberol io.mpv.Mpv md.obsidian.Obsidian \
+	org.gnome.clocks org.gnome.Calendar org.gnome.Evince org.gnome.Loupe org.gnome.World.Secrets \
+	com.github.wwmm.easyeffects com.github.tchx84.Flatseal io.github.seadve.Kooha de.haeckerfelix.Fragments \
+	org.gnome.Fractal org.gnome.Boxes org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -77,8 +85,14 @@ gsettings set org.gnome.shell.extensions.just-perfection window-picker-icon fals
 gsettings set org.gnome.shell.extensions.just-perfection search false
 
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
-gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
+gsettings set org.gnome.desktop.interface font-name 'Inter 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'
+gsettings set org.gnome.desktop.interface font-hinting 'medium'
+gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
+
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
@@ -91,6 +105,3 @@ gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/or
 gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
 gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
 gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false
-
-# distroboxes
-distrobox create --image registry.fedoraproject.org/fedora-toolbox:39 --name devbx

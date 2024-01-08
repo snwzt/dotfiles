@@ -16,4 +16,3 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 
 # addn fix
 export HISTFILE="$XDG_STATE_HOME"/bash/history
-export WGETRC="$XDG_CONFIG_HOME/wgetrc"

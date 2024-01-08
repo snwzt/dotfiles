@@ -31,9 +31,6 @@ export PS1='\u@\h \W $(if [ -n "$(git rev-parse --show-toplevel 2>/dev/null)" ];
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-# alias
-alias wget=wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"
-
 # completions
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
