@@ -10,6 +10,6 @@
     "editor.minimap.enabled": false,
     "workbench.startupEditor": "none",
     "explorer.confirmDragAndDrop": false,
-    "workbench.colorTheme": "Everforest Dark",
-    "workbench.iconTheme": "material-icon-theme"
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Solarized Dark"
 }

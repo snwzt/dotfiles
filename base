@@ -18,4 +18,4 @@ rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-softwa
 
 # base addition
 rpm-ostree install gnome-shell-extension-appindicator gnome-shell-extension-just-perfection distrobox \
-    stow adw-gtk3-theme iosevka-fonts papirus-icon-theme micro wl-clipboard rsms-inter-fonts code
+    stow adw-gtk3-theme iosevka-fonts papirus-icon-theme micro wl-clipboard code

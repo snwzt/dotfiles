@@ -34,6 +34,12 @@ asdf global kubectl latest
 asdf install nodejs latest
 asdf global nodejs latest
 
+# font
+wget -qO $HOME/.local/share/fonts/product-sans.zip https://befonts.com/wp-content/uploads/2018/08/product-sans.zip
+unzip -q $HOME/.local/share/fonts/product-sans.zip -d $HOME/.local/share/fonts/product-sans/
+rm $HOME/.local/share/fonts/product-sans.zip
+fc-cache
+
 # vscode extensions
 pkglist=(
     golang.go
@@ -87,11 +93,11 @@ gsettings set org.gnome.shell.extensions.just-perfection search false
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
-gsettings set org.gnome.desktop.interface font-name 'Inter 11'
-gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'
-gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'
-gsettings set org.gnome.desktop.interface font-hinting 'medium'
-gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
+gsettings set org.gnome.desktop.interface font-name 'Product Sans 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Product Sans 11'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Product Sans Bold 11'
+# gsettings set org.gnome.desktop.interface font-hinting 'medium'
+# gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
 
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
