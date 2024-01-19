@@ -7,10 +7,9 @@ fi
 
 set -eux
 
-mkdir -p $HOME/.local/state/bash
 mkdir -p $HOME/.local/bin
-mkdir -p $HOME/.config/Code/User
-rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout $HOME/.bash_history
+mkdir -p $HOME/.local/share/fonts
+rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # symlink configs
 stow Home -t ~/
@@ -40,28 +39,16 @@ unzip -q $HOME/.local/share/fonts/product-sans.zip -d $HOME/.local/share/fonts/p
 rm $HOME/.local/share/fonts/product-sans.zip
 fc-cache
 
-# vscode extensions
-pkglist=(
-    golang.go
-	sainnhe.everforest
-	pkief.material-icon-theme
-)
-
-for i in ${pkglist[@]}; do
-    code --install-extension $i
-done
-
 # flatpaks
 flatpak remove --all -y
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub org.chromium.Chromium org.telegram.desktop io.github.spacingbat3.webcord \
-	com.valvesoftware.Steam org.prismlauncher.PrismLauncher io.bassi.Amberol io.mpv.Mpv md.obsidian.Obsidian \
+flatpak install -y flathub org.chromium.Chromium com.valvesoftware.Steam org.prismlauncher.PrismLauncher io.mpv.Mpv \
 	org.gnome.clocks org.gnome.Calendar org.gnome.Evince org.gnome.Loupe org.gnome.World.Secrets \
-	com.github.wwmm.easyeffects com.github.tchx84.Flatseal io.github.seadve.Kooha de.haeckerfelix.Fragments \
-	org.gnome.Fractal org.gnome.Boxes org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+	com.github.wwmm.easyeffects com.github.tchx84.Flatseal com.dec05eba.gpu_screen_recorder \
+	org.gnome.TextEditor org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -90,14 +77,12 @@ gsettings set org.gnome.shell.extensions.just-perfection workspace false
 gsettings set org.gnome.shell.extensions.just-perfection window-picker-icon false
 gsettings set org.gnome.shell.extensions.just-perfection search false
 
-gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3'
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 13'
 gsettings set org.gnome.desktop.interface font-name 'Product Sans 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Product Sans 11'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Product Sans Bold 11'
-# gsettings set org.gnome.desktop.interface font-hinting 'medium'
-# gsettings set org.gnome.desktop.interface font-antialiasing 'rgba'
 
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
@@ -105,9 +90,5 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']" 
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
-
-gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
-gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
-gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "alacritty"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Alacritty"

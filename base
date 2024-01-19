@@ -7,15 +7,10 @@ fi
 
 set -eux
 
-# fonts
-curl https://copr.fedorainfracloud.org/coprs/peterwu/iosevka/repo/fedora-$(rpm -E %fedora)/peterwu-iosevka-fedora-$(rpm -E %fedora).repo > /etc/yum.repos.d/iosevka.repo
-
-# vscode
-sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-
 # base removal
-rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree
+rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree \
+	gnome-terminal gnome-terminal-nautilus
 
 # base addition
-rpm-ostree install gnome-shell-extension-appindicator gnome-shell-extension-just-perfection distrobox \
-    stow adw-gtk3-theme iosevka-fonts papirus-icon-theme micro wl-clipboard code
+rpm-ostree install gnome-shell-extension-appindicator gnome-shell-extension-just-perfection adw-gtk3-theme \
+    papirus-icon-theme jetbrains-mono-fonts alacritty tmux distrobox podman-compose stow
