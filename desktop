@@ -9,6 +9,7 @@ set -eux
 
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.local/share/fonts
+mkdir -p $HOME/.config/Code/User
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # symlink configs
@@ -33,6 +34,20 @@ asdf global kubectl latest
 asdf install nodejs latest
 asdf global nodejs latest
 
+# vscode extensions
+pkglist=(
+    golang.go
+    ms-python.python
+    ms-python.vscode-pylance
+    ritwickdey.liveserver
+    redhat.vscode-yaml
+    pkief.material-icon-theme
+)
+
+for i in ${pkglist[@]}; do
+    code --install-extension $i
+done
+
 # font
 wget -qO $HOME/.local/share/fonts/product-sans.zip https://befonts.com/wp-content/uploads/2018/08/product-sans.zip
 unzip -q $HOME/.local/share/fonts/product-sans.zip -d $HOME/.local/share/fonts/product-sans/
@@ -45,10 +60,11 @@ flatpak remove --all -y
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub org.chromium.Chromium com.valvesoftware.Steam org.prismlauncher.PrismLauncher io.mpv.Mpv \
+flatpak install -y flathub org.chromium.Chromium com.valvesoftware.Steam org.prismlauncher.PrismLauncher \
 	org.gnome.clocks org.gnome.Calendar org.gnome.Evince org.gnome.Loupe org.gnome.World.Secrets \
 	com.github.wwmm.easyeffects com.github.tchx84.Flatseal com.dec05eba.gpu_screen_recorder \
-	org.gnome.TextEditor org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+	de.haeckerfelix.Fragments io.github.celluloid_player.Celluloid \
+	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -64,11 +80,14 @@ gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.mutter center-new-windows true
 gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 5
+
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>a']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>s']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>d']"
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>c']"
 gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Super>q']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift><Super>f']"
 
@@ -90,5 +109,9 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']" 
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "alacritty"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Alacritty"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
+
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
+gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false
