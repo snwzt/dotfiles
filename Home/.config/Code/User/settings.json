@@ -4,11 +4,13 @@
     "terminal.integrated.fontSize": 16,
     "editor.fontLigatures": true,
     "breadcrumbs.enabled": false,
-    "window.menuBarVisibility": "toggle",
     "window.dialogStyle": "custom",
     "window.titleBarStyle": "custom",
     "editor.minimap.enabled": false,
     "workbench.startupEditor": "none",
     "explorer.confirmDragAndDrop": false,
-    "workbench.colorTheme": "Solarized Dark"
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.iconTheme": null,
+    "window.menuBarVisibility": "hidden",
+    "git.openRepositoryInParentFolders": "always",
 }

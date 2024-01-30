@@ -1,0 +1,32 @@
+{
+	"layer": "top",
+	"position": "bottom",
+	"height": 24,
+	"modules-left": ["hyprland/workspaces"],
+    "modules-right": ["backlight", "wireplumber", "clock", "custom/ppd", "battery", "tray"],
+    "hyprland/workspaces": {
+    	"on-click": "activate",	
+    },
+    "backlight": {
+    	"format": "B-{percent} |",	
+    },
+    "wireplumber": {
+    	"format": "A-{volume} |",
+    	"format-muted": "M |",
+    },
+    "clock": {
+    	"interval": 60,
+        "format": "{:%I:%M |}",
+    },
+    "custom/ppd": {
+    	"tooltip": false,
+    	"exec": "powerprofilesctl get",
+    	"format": "{} |",
+    },
+    "battery": {
+    	"format": "{capacity}D",
+    	"format-charging": "{capacity}C",
+    	"format-plugged": "{capacity}P",
+        "tooltip": false,
+    }
+}
