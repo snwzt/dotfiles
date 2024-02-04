@@ -10,6 +10,7 @@ set -eux
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.config/Code/User
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
+rm -rf $HOME/.mozilla
 
 # symlink configs
 stow Home -t ~/
@@ -49,13 +50,53 @@ for i in ${pkglist[@]}; do
 done
 
 # flatpaks
-flatpak remove --all -y
-
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub org.chromium.Chromium com.valvesoftware.Steam org.prismlauncher.PrismLauncher \
-	org.gnome.clocks org.gnome.Calendar org.gnome.Evince org.gnome.Loupe org.gnome.World.Secrets \
-	com.github.wwmm.easyeffects com.github.tchx84.Flatseal com.dec05eba.gpu_screen_recorder \
-	de.haeckerfelix.Fragments io.github.celluloid_player.Celluloid \
-	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+flatpak install -y flathub com.valvesoftware.Steam com.dec05eba.gpu_screen_recorder \
+	org.prismlauncher.PrismLauncher org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+
+# desktop
+gnome-extensions disable background-logo@fedorahosted.org
+gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+gnome-extensions enable just-perfection-desktop@just-perfection
+
+gsettings set org.gnome.shell.keybindings toggle-application-view []
+gsettings set org.gnome.shell.keybindings toggle-overview []
+gsettings set org.gnome.shell.keybindings toggle-quick-settings []
+
+gsettings set org.gnome.shell.app-switcher current-workspace-only true
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.mutter center-new-windows true
+gsettings set org.gnome.desktop.session idle-delay "uint32 0"
+
+gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>a']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>s']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>d']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>c']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Shift><Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Shift><Super>f']"
+
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.shell.extensions.just-perfection workspace false
+gsettings set org.gnome.shell.extensions.just-perfection window-picker-icon false
+gsettings set org.gnome.shell.extensions.just-perfection search false
+
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Iosevka 14'
+gsettings set org.gnome.desktop.interface font-name 'Noto Sans 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Noto Sans 11'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Noto Sans Bold 11'
+
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']" 
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "kgx"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"

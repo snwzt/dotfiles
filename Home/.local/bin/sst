@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# get system status on terminal
+# sst - system status
 
 while true; do
     # Get CPU temperature

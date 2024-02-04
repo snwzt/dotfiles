@@ -35,3 +35,20 @@ export GIT_PS1_SHOWUNTRACKEDFILES=true
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh
 source <(kubectl completion bash)
+
+# hip to be square
+dtf() {
+	# down to find
+	
+    if [ "$1" != "" ]; then
+        selected_dir=$(find "$HOME" -type d -not -path '*/\.*' | fzf --height 20)
+
+        if [ -n "$selected_dir" ]; then
+            eval "$1 \"$selected_dir\""
+        fi
+    fi
+}
+
+muse() {
+    mpv --no-video --term-osd-bar "$1"
+} 

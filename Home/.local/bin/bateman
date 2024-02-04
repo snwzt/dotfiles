@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ ! -d "$1" ]; then
+        echo "not a directory"
+	exit 1
+fi
+
+cd "$1" && find . -type d \( -name .git -o -name .node_modules \) -prune -o -type f -print | fzf --preview 'bat --color=always {}'

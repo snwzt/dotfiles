@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$EUID" -ne 0 ]; then
     echo "Please run this script as root."
@@ -7,20 +7,23 @@ fi
 
 set -eux
 
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
-dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-dnf swap ffmpeg-free ffmpeg --allowerasing
+dnf copr enable peterwu/iosevka -y
 
-dnf install -y hyprland sway polkit-gnome mako thunar wl-clipboard \
-	micro sddm brave-browser fuzzel waybar code imv mpv mpv-mpris \
-	power-profiles-daemon swaybg xdg-user-dirs stow network-manager-applet \
-	swaylock swayidle qt6ct papirus-icon-theme gnome-themes-extra \
-	easyeffects git secrets
+dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
-dnf remove -y wofi
+dnf install -y chromium code mpv mpv-mpris stow adw-gtk3-theme easyeffects \
+	transmission p7zip p7zip-plugins htop iosevka-fonts fzf bat \
+	gnome-shell-extension-appindicator gnome-console secrets \
+	gnome-shell-extension-just-perfection 
+
+dnf remove -y gnome-classic-session firefox firefox-langpacks gnome-software \
+	gnome-system-monitor PackageKit PackageKit-gstreamer-plugin PackageKit-glib \
+	PackageKit-gtk3-module libreoffice* gnome-characters gnome-font-viewer \
+	gnome-calculator gnome-text-editor gnome-maps totem gnome-boxes gnome-weather \
+	gnome-tour cheese rhythmbox baobab gnome-connections gnome-logs mediawriter \
+	simple-scan gnome-contacts gnome-abrt gnome-terminal sushi	

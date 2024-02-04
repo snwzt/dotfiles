@@ -1,7 +1,7 @@
 {
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontSize": 16,
-    "terminal.integrated.fontSize": 16,
+    "editor.fontFamily": "Iosevka",
+    "editor.fontSize": 18,
+    "terminal.integrated.fontSize": 18,
     "editor.fontLigatures": true,
     "breadcrumbs.enabled": false,
     "window.dialogStyle": "custom",
