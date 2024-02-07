@@ -19,6 +19,9 @@ fi
 
 unset rc
 
+# chipi chapa dubi daba
+export GPG_TTY=$(tty)
+
 # add .local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
 

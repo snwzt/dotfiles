@@ -9,21 +9,24 @@ set -eux
 
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-
+dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 dnf copr enable peterwu/iosevka -y
 
 dnf swap ffmpeg-free ffmpeg --allowerasing -y
 
-dnf install -y chromium code mpv mpv-mpris stow adw-gtk3-theme easyeffects \
-	transmission p7zip p7zip-plugins htop iosevka-fonts fzf bat \
-	gnome-shell-extension-appindicator gnome-console secrets \
-	gnome-shell-extension-just-perfection 
+dnf install -y sway polkit-gnome mako wl-clipboard sddm fuzzel waybar \
+	imv power-profiles-daemon swaybg xdg-user-dirs network-manager-applet \
+	swaylock swayidle gnome-themes-extra xdg-desktop-portal-wlr \
+	xdg-desktop-portal-gtk alacritty papirus-icon-theme brightnessctl
 
-dnf remove -y gnome-classic-session firefox firefox-langpacks gnome-software \
-	gnome-system-monitor PackageKit PackageKit-gstreamer-plugin PackageKit-glib \
-	PackageKit-gtk3-module libreoffice* gnome-characters gnome-font-viewer \
-	gnome-calculator gnome-text-editor gnome-maps totem gnome-boxes gnome-weather \
-	gnome-tour cheese rhythmbox baobab gnome-connections gnome-logs mediawriter \
-	simple-scan gnome-contacts gnome-abrt gnome-terminal sushi	
+dnf remove -y foot dmenu
+
+dnf install -y brave-browser pcmanfm easyeffects transmission secrets \
+	mpv mpv-mpris p7zip p7zip-plugins flatpak
+
+dnf install -y code git htop stow make fzf bat iosevka-fonts
+
+ dnf install -y 'google-noto-*' --exclude='*vf-fonts*' --skip-broken

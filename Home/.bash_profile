@@ -14,5 +14,5 @@ export XDG_CACHE_HOME=${XDG_CACHE_HOME:="$HOME/.cache"}
 export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:="$HOME/.config"}
 export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 
-export QT_QPA_PLATFORMTHEME=qt6ct
 export XCURSOR_SIZE=24
+export QT_STYLE_OVERRIDE=adwaita
