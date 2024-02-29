@@ -7,26 +7,20 @@ fi
 
 set -eux
 
-rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-dnf copr enable peterwu/iosevka -y
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf copr enable -y g3tchoo/prismlauncher
 
 dnf swap ffmpeg-free ffmpeg --allowerasing -y
+dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
+dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y
 
-dnf install -y sway polkit-gnome mako wl-clipboard sddm fuzzel waybar \
-	imv power-profiles-daemon swaybg xdg-user-dirs network-manager-applet \
-	swaylock swayidle gnome-themes-extra xdg-desktop-portal-wlr \
-	xdg-desktop-portal-gtk alacritty papirus-icon-theme brightnessctl
+dnf autoremove -y *akonadi* kwrite kmousetool ibus-libpinyin \
+    ibus-libzhuyin ibus-hangul kcharselect abrt-* PackageKit kfind \
+    plasma-discover plasma-drkonqi plasma-welcome firewall-config \
+    kde-partitionmanager plasma-systemmonitor setroubleshoot filelight
 
-dnf remove -y foot dmenu
+dnf install -y flatpak chromium mpv mpv-mpris easyeffects okular gwenview \
+    keepassxc transmission prismlauncher-qt5
 
-dnf install -y brave-browser pcmanfm easyeffects transmission secrets \
-	mpv mpv-mpris p7zip p7zip-plugins flatpak
-
-dnf install -y code git htop stow make fzf bat iosevka-fonts
-
- dnf install -y 'google-noto-*' --exclude='*vf-fonts*' --skip-broken
+dnf install -y kate git stow make htop micro wl-clipboard

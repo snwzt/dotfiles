@@ -9,6 +9,7 @@ set -eux
 
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.config/Code/User
+mkdir -p $HOME/.config/plasma-workspace/env
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # symlink configs
@@ -21,34 +22,16 @@ git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "ht
 . "$HOME/.asdf/completions/asdf.bash"
 
 asdf plugin add golang
-asdf plugin add kubectl
 asdf plugin add nodejs
 
 asdf install golang latest
 asdf global golang latest
 
-asdf install kubectl latest
-asdf global kubectl latest
-
 asdf install nodejs latest
 asdf global nodejs latest
-
-# vscode extensions
-pkglist=(
-    golang.go
-    ritwickdey.liveserver
-    redhat.vscode-yaml
-    bradlc.vscode-tailwindcss
-    github.github-vscode-theme
-)
-
-for i in ${pkglist[@]}; do
-    code --install-extension $i
-done
 
 # flatpaks
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub com.valvesoftware.Steam com.dec05eba.gpu_screen_recorder \
-	org.prismlauncher.PrismLauncher
+flatpak install -y flathub com.valvesoftware.Steam 
