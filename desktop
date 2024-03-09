@@ -9,7 +9,6 @@ set -eux
 
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.config/Code/User
-mkdir -p $HOME/.config/plasma-workspace/env
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # symlink configs
@@ -23,6 +22,7 @@ git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "ht
 
 asdf plugin add golang
 asdf plugin add nodejs
+asdf plugin add terraform
 
 asdf install golang latest
 asdf global golang latest
@@ -30,8 +30,52 @@ asdf global golang latest
 asdf install nodejs latest
 asdf global nodejs latest
 
+asdf install terraform latest
+asdf global terraform latest
+
 # flatpaks
+flatpak remove --all -y
+
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify flathub --enable
 
-flatpak install -y flathub com.valvesoftware.Steam 
+flatpak install -y flathub com.brave.Browser org.gnome.World.Secrets org.gnome.Loupe \
+	io.github.seadve.Kooha org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
+	org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark org.gnome.Evince \
+	com.github.tchx84.Flatseal io.mpv.Mpv org.gnome.clocks org.gnome.Calendar \
+	com.github.wwmm.easyeffects org.gnome.Extensions
+
+# desktop
+gnome-extensions disable background-logo@fedorahosted.org
+gnome-extensions enable caffeine@patapon.info
+gnome-extensions enable just-perfection-desktop@just-perfection
+
+gsettings set org.gnome.shell.keybindings toggle-application-view []
+gsettings set org.gnome.shell.keybindings toggle-overview []
+gsettings set org.gnome.shell.keybindings toggle-quick-settings []
+
+gsettings set org.gnome.shell.extensions.just-perfection search false
+gsettings set org.gnome.shell.app-switcher current-workspace-only true
+gsettings set org.gnome.mutter dynamic-workspaces false
+gsettings set org.gnome.mutter center-new-windows true
+gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>a']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>s']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>d']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>f']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>c']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x']"
+
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Monospace 12'
+
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']" 
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
+

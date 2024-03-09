@@ -7,20 +7,12 @@ fi
 
 set -eux
 
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-dnf copr enable -y g3tchoo/prismlauncher
+# vscode
+sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
-dnf swap ffmpeg-free ffmpeg --allowerasing -y
-dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
-dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y
+# base removal
+rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree
 
-dnf autoremove -y *akonadi* kwrite kmousetool ibus-libpinyin \
-    ibus-libzhuyin ibus-hangul kcharselect abrt-* PackageKit kfind \
-    plasma-discover plasma-drkonqi plasma-welcome firewall-config \
-    kde-partitionmanager plasma-systemmonitor setroubleshoot filelight
-
-dnf install -y flatpak chromium mpv mpv-mpris easyeffects okular gwenview \
-    keepassxc transmission prismlauncher-qt5
-
-dnf install -y kate git stow make htop micro wl-clipboard
+# base addition
+rpm-ostree install code gedit gnome-shell-extension-caffeine gnome-shell-extension-just-perfection \
+	distrobox adw-gtk3-theme stow

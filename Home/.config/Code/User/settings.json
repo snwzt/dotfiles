@@ -1,0 +1,21 @@
+{
+    "editor.fontSize": 16,
+    "terminal.integrated.fontSize": 16,
+    "breadcrumbs.enabled": false,
+    "window.dialogStyle": "custom",
+    "window.titleBarStyle": "custom",
+    "editor.minimap.enabled": false,
+    "workbench.startupEditor": "none",
+    "explorer.confirmDragAndDrop": false,
+    "workbench.iconTheme": null,
+    "window.menuBarVisibility": "hidden",
+    "workbench.colorTheme": "Solarized Dark",
+    "editor.rulers": [
+        80,
+        100
+    ],
+    "dev.containers.dockerPath": "podman",
+    "dev.containers.dockerComposePath": "",
+    "dev.containers.dockerCredentialHelper": false,
+    "dev.containers.copyGitConfig": false,
+}
