@@ -1,5 +1,0 @@
-[includeIf "gitdir:~/Documents/Development/snwzt/"]
-path = ~/.gitconfig.personal
-
-[includeIf "gitdir:~/Documents/Development/notmde/"]
-path = ~/.gitconfig.side

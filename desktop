@@ -12,7 +12,30 @@ rm -rf $HOME/.mozilla
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # configs
-nix run home-manager/master -- init --switch ~/home
+stow Home -t ~/
+
+# asdf
+git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "https://api.github.com/repos/asdf-vm/asdf/releases/latest" | jq -r .tag_name)
+
+. "$HOME/.asdf/asdf.sh"
+. "$HOME/.asdf/completions/asdf.bash"
+
+asdf plugin add golang
+asdf plugin add nodejs
+asdf plugin add terraform
+asdf plugin add kubectl
+
+asdf install golang latest
+asdf global golang latest
+
+asdf install nodejs latest
+asdf global nodejs latest
+
+asdf install terraform latest
+asdf global terraform latest
+
+asdf install kubectl latest
+asdf global kubectl latest
 
 # flatpaks
 flatpak remove --all -y
@@ -52,7 +75,7 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x
 gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Source Code Pro 12'
+gsettings set org.gnome.desktop.interface monospace-font-name 'monospace 12'
 
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'

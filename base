@@ -11,4 +11,5 @@ rpm-ostree upgrade
 
 rpm-ostree override remove gnome-software gnome-software-rpm-ostree firefox firefox-langpacks
 
-rpm-ostree install adw-gtk3-theme micro wl-clipboard distrobox gnome-shell-extension-just-perfection
+rpm-ostree install adw-gtk3-theme stow micro wl-clipboard distrobox \
+    gnome-shell-extension-just-perfection
