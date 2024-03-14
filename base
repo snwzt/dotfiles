@@ -7,12 +7,8 @@ fi
 
 set -eux
 
-# vscode
-sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+rpm-ostree upgrade
 
-# base removal
-rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree
+rpm-ostree override remove gnome-software gnome-software-rpm-ostree firefox firefox-langpacks
 
-# base addition
-rpm-ostree install code gedit gnome-shell-extension-caffeine gnome-shell-extension-just-perfection \
-	distrobox adw-gtk3-theme stow
+rpm-ostree install adw-gtk3-theme micro wl-clipboard distrobox gnome-shell-extension-just-perfection
