@@ -47,7 +47,7 @@ flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3
   org.gnome.Evince org.gnome.Loupe org.gnome.clocks org.gnome.Calendar io.mpv.Mpv \
   com.github.tchx84.Flatseal com.github.wwmm.easyeffects org.gnome.World.Secrets \
   com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
-  com.jetbrains.GoLand it.mijorus.gearlever 
+  com.jetbrains.GoLand it.mijorus.gearlever
 
 # setup
 gnome-extensions disable background-logo@fedorahosted.org
