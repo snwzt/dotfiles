@@ -37,6 +37,11 @@ asdf global terraform latest
 asdf install kubectl latest
 asdf global kubectl latest
 
+# kind
+[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
+chmod +x ./kind
+mv ./kind ~/.local/bin/kind
+
 # flatpaks
 flatpak remove --all -y
 
@@ -47,22 +52,21 @@ flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3
   org.gnome.Evince org.gnome.Loupe org.gnome.clocks org.gnome.Calendar io.mpv.Mpv \
   com.github.tchx84.Flatseal com.github.wwmm.easyeffects org.gnome.World.Secrets \
   com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
-  com.jetbrains.GoLand it.mijorus.gearlever
+  com.jetbrains.GoLand
 
 # setup
 gnome-extensions disable background-logo@fedorahosted.org
-gnome-extensions enable just-perfection-desktop@just-perfection
+gnome-extensions enable blur-my-shell@aunetx
+gnome-extensions enable dash-to-panel@jderose9.github.com
 
 gsettings set org.gnome.shell.keybindings toggle-application-view []
 gsettings set org.gnome.shell.keybindings toggle-overview []
 gsettings set org.gnome.shell.keybindings toggle-quick-settings []
-gsettings set org.gnome.shell.extensions.just-perfection search false
-gsettings set org.gnome.shell.extensions.just-perfection window-picker-icon false
-gsettings set org.gnome.shell.app-switcher current-workspace-only true
-gsettings set org.gnome.shell.window-switcher app-icon-mode "thumbnail-only"
 
+gsettings set org.gnome.shell.app-switcher current-workspace-only true
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.mutter center-new-windows true
+gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
 
 gsettings set org.gnome.desktop.wm.preferences num-workspaces 6
 gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Alt>Tab']"
@@ -74,11 +78,12 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>c
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x']"
 gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface monospace-font-name 'monospace 12'
 
-gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
