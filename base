@@ -11,5 +11,5 @@ rpm-ostree upgrade
 
 rpm-ostree override remove gnome-software gnome-software-rpm-ostree firefox firefox-langpacks
 
-rpm-ostree install adw-gtk3-theme stow micro wl-clipboard distrobox \
+rpm-ostree install adw-gtk3-theme stow micro wl-clipboard distrobox papirus-icon-theme \
     gnome-shell-extension-dash-to-panel gnome-shell-extension-blur-my-shell

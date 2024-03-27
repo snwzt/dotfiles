@@ -52,12 +52,11 @@ flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3
   org.gnome.Evince org.gnome.Loupe org.gnome.clocks org.gnome.Calendar io.mpv.Mpv \
   com.github.tchx84.Flatseal com.github.wwmm.easyeffects org.gnome.World.Secrets \
   com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
-  com.jetbrains.GoLand
+  com.jetbrains.GoLand com.visualstudio.code com.mattjakeman.ExtensionManager \
+  com.github.johnfactotum.Foliate
 
 # setup
 gnome-extensions disable background-logo@fedorahosted.org
-gnome-extensions enable blur-my-shell@aunetx
-gnome-extensions enable dash-to-panel@jderose9.github.com
 
 gsettings set org.gnome.shell.keybindings toggle-application-view []
 gsettings set org.gnome.shell.keybindings toggle-overview []
@@ -82,6 +81,7 @@ gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'inter
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 gsettings set org.gnome.desktop.interface monospace-font-name 'monospace 12'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
