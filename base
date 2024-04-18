@@ -1,15 +1,30 @@
 #!/usr/bin/env bash
 
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run this script as root."
-    exit 1
+if [ "$EUID" -ne 0 ]
+	then echo "Please run as root."
+	exit
 fi
 
 set -eux
 
-rpm-ostree upgrade
+dnf -y upgrade
 
-rpm-ostree override remove gnome-software gnome-software-rpm-ostree firefox firefox-langpacks
+# repo
+dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
-rpm-ostree install adw-gtk3-theme stow micro wl-clipboard distrobox papirus-icon-theme \
-    gnome-shell-extension-dash-to-panel gnome-shell-extension-blur-my-shell
+# gui
+dnf install -y gnome-shell gnome-terminal gnome-terminal-nautilus nautilus \
+    gnome-system-monitor
+
+# cli
+dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin \
+    docker-compose-plugin
+
+dnf install -y jetbrains-mono-fonts rsms-inter-fonts papirus-icon-theme \
+    adw-gtk3-theme stow fish micro wl-clipboard p7zip p7zip-plugins \
+    flatpak
+
+dnf install -y gcc
+
+# graphical target
+systemctl set-default graphical.target

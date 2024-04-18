@@ -7,40 +7,12 @@ fi
 
 set -eux
 
+# stuff
 mkdir -p $HOME/.local/bin
-rm -rf $HOME/.mozilla
 rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_logout
 
 # configs
 stow Home -t ~/
-
-# asdf
-git clone https://github.com/asdf-vm/asdf.git $HOME/.asdf --branch $(curl -s "https://api.github.com/repos/asdf-vm/asdf/releases/latest" | jq -r .tag_name)
-
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
-
-asdf plugin add golang
-asdf plugin add nodejs
-asdf plugin add terraform
-asdf plugin add kubectl
-
-asdf install golang latest
-asdf global golang latest
-
-asdf install nodejs latest
-asdf global nodejs latest
-
-asdf install terraform latest
-asdf global terraform latest
-
-asdf install kubectl latest
-asdf global kubectl latest
-
-# kind
-[ $(uname -m) = x86_64 ] && curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.22.0/kind-linux-amd64
-chmod +x ./kind
-mv ./kind ~/.local/bin/kind
 
 # flatpaks
 flatpak remove --all -y
@@ -49,13 +21,14 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak remote-modify flathub --enable
 
 flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark \
-  org.gnome.Evince org.gnome.Loupe org.gnome.clocks org.gnome.Calendar io.mpv.Mpv \
-  com.github.tchx84.Flatseal com.github.wwmm.easyeffects org.gnome.World.Secrets \
-  com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
-  com.jetbrains.GoLand com.visualstudio.code com.mattjakeman.ExtensionManager \
-  com.github.johnfactotum.Foliate
+    com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam io.mpv.Mpv \
+    org.gnome.World.Secrets org.gnome.Calendar org.gnome.Evince org.gnome.Loupe \
+	org.gnome.clocks com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager \
+	com.github.wwmm.easyeffects io.bassi.Amberol com.usebruno.Bruno com.vscodium.codium \
+	org.onlyoffice.desktopeditors de.haeckerfelix.Fragments org.gnome.Characters \
+	com.obsproject.Studio
 
-# setup
+# desktop
 gnome-extensions disable background-logo@fedorahosted.org
 
 gsettings set org.gnome.shell.keybindings toggle-application-view []
@@ -82,9 +55,18 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
-gsettings set org.gnome.desktop.interface monospace-font-name 'monospace 12'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 13'
+gsettings set org.gnome.desktop.interface font-name 'Inter 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'
+gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'
+gsettings set org.gnome.desktop.interface font-hinting 'slight'
+gsettings set org.gnome.desktop.interface font-antialiasing 'grayscale'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
+
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
+gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false

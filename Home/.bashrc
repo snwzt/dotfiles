@@ -19,20 +19,16 @@ fi
 
 unset rc
 
-# add .local/bin to path
-export PATH="$HOME/.local/bin:$PATH"
+# # brew
+# eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# asdf
-. "$HOME/.asdf/asdf.sh"
-. "$HOME/.asdf/completions/asdf.bash"
+# # git bash prompt
+# export PS1='\u@\h \W $(if [ -n "$(git rev-parse --show-toplevel 2>/dev/null)" ]; then echo -n "$(if [ -n "$(git config --get user.name)" ]; then echo -n "($(git config --get user.name)) "; fi)$(__git_ps1 "(%s) ")"; fi)'
+# export GIT_PS1_SHOWDIRTYSTATE=true
+# export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-# git bash prompt
-export PS1='\u@\h \W $(if [ -n "$(git rev-parse --show-toplevel 2>/dev/null)" ]; then echo -n "$(if [ -n "$(git config --get user.name)" ]; then echo -n "($(git config --get user.name)) "; fi)$(__git_ps1 "(%s) ")"; fi)'
-export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWUNTRACKEDFILES=true
-
-# completions
-source /etc/profile.d/bash_completion.sh
-source /usr/share/git-core/contrib/completion/git-prompt.sh
-source <(kubectl completion bash)
-source <(kind completion bash)
+# # completions
+# source /etc/profile.d/bash_completion.sh
+# source /usr/share/git-core/contrib/completion/git-prompt.sh
+# source <(kubectl completion bash)
+# source <(kind completion bash)
