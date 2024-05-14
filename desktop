@@ -18,6 +18,19 @@ rm $HOME/.bashrc $HOME/.bash_profile $HOME/.bash_history $HOME/.bash_logout
 # configs
 stow Home -t ~/
 
+# asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+
+# golang
+asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
+asdf install golang latest
+asdf global golang latest
+
+# npm
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+asdf install nodejs latest
+asdf global nodejs latest
+
 # flatpaks
 flatpak remove --all -y
 
@@ -25,17 +38,16 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak remote-modify flathub --enable
 
 flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark \
-	com.brave.Browser org.prismlauncher.PrismLauncher com.valvesoftware.Steam \
-	org.gnome.World.Secrets org.gnome.Calendar org.gnome.Evince org.gnome.Loupe \
-	org.gnome.clocks com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager \
-	com.github.wwmm.easyeffects io.bassi.Amberol com.usebruno.Bruno com.vscodium.codium \
-	org.onlyoffice.desktopeditors de.haeckerfelix.Fragments org.gnome.Characters \
-	com.obsproject.Studio io.mpv.Mpv com.jetbrains.GoLand it.mijorus.gearlever
+	com.valvesoftware.Steam com.mattjakeman.ExtensionManager io.bassi.Amberol \
+	io.mpv.Mpv com.obsproject.Studio com.rafaelmardojai.Blanket com.visualstudio.code \
+	com.brave.Browser com.jetbrains.GoLand org.gnome.World.Secrets \
+	com.github.wwmm.easyeffects
 
 # fonts
 wget -q https://assets.ubuntu.com/v1/0cef8205-ubuntu-font-family-0.83.zip -O $HOME/.local/share/fonts/ubuntu-fonts.zip
 unzip $HOME/.local/share/fonts/ubuntu-fonts.zip -d $HOME/.local/share/fonts/
 rm $HOME/.local/share/fonts/ubuntu-fonts.zip
+fc-cache
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -62,16 +74,19 @@ gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
+gsettings set org.gnome.desktop.interface clock-format '24h'
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark'
 gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 13'
 gsettings set org.gnome.desktop.interface font-name 'Ubuntu 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Ubuntu 11'
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Ubuntu Bold 11'
-gsettings set org.gnome.desktop.interface font-hinting 'slight'
-gsettings set org.gnome.desktop.interface font-antialiasing 'grayscale'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
+
+gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
+gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
+gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false

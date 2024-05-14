@@ -8,16 +8,9 @@ bindkey -e
 # prompt
 PS1="%n@%m %~ > "
 
-# brew
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-if type brew &>/dev/null
-then
-  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-  autoload -Uz compinit
-  compinit
-fi
+# asdf
+. "$HOME/.asdf/asdf.sh"
+fpath=(${ASDF_DIR}/completions $fpath)
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '/var/home/snwzt/.config/zsh/.zshrc'
