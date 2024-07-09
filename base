@@ -5,20 +5,25 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-set -eux
+dnf remove -y firefox firefox-langpacks gnome-maps totem \
+    gnome-boxes gnome-weather rhythmbox baobab libreoffice-* \
+    gnome-connections gnome-logs mediawriter gnome-terminal* \
+    simple-scan gnome-contacts gnome-abrt gnome-font-viewer \
+    gnome-tour gnome-calculator evince gnome-system-monitor
 
-dnf copr enable -y g3tchoo/prismlauncher 
+dnf copr enable -y dusansimic/themes
 
-dnf remove -y firefox firefox-langpacks gnome-maps totem gnome-boxes gnome-weather \
-	rhythmbox baobab gnome-connections gnome-logs mediawriter simple-scan gnome-contacts \
-	gnome-abrt gnome-font-viewer gnome-text-editor libreoffice-* gnome-tour gnome-calculator
+dnf install -y adw-gtk3-theme morewaita-icon-theme \
+    cascadia-code-nf-fonts rsms-inter-fonts
 
-dnf install -y easyeffects flatseal transmission adw-gtk3-theme prismlauncher \
-	papirus-icon-theme jetbrains-mono-fonts htop btop p7zip p7zip-plugins \
-	stow zsh micro wl-clipboard systemd-container wireshark strace nmap
+dnf install -y micro wl-clipboard systemd-container \
+    stow p7zip p7zip-plugins
+
+dnf install -y wireshark strace nmap httpie
+
+dnf install -y ansible azure-cli awscli2 opentofu htop \
+    @development-tools httpie btop gnome-console
+
+dnf install -y flatseal transmission
 
 dnf autoremove -y
-
-# user stuff
-usermod -a -G wireshark $USER
-chsh $USER -s /bin/zsh
