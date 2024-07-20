@@ -28,9 +28,6 @@ unset rc
 . "$HOME/.asdf/asdf.sh"
 . "$HOME/.asdf/completions/asdf.bash"
 
-# rustup
-. "$HOME/.cargo/env"
-
 # completions
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh

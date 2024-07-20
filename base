@@ -5,25 +5,23 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-dnf remove -y firefox firefox-langpacks gnome-maps totem \
-    gnome-boxes gnome-weather rhythmbox baobab libreoffice-* \
-    gnome-connections gnome-logs mediawriter gnome-terminal* \
-    simple-scan gnome-contacts gnome-abrt gnome-font-viewer \
-    gnome-tour gnome-calculator evince gnome-system-monitor
+set -eux
 
-dnf copr enable -y dusansimic/themes
+dnf install -y tmux sway waybar mako polkit-kde micro wl-clipboard \
+	power-profiles-daemon xdg-user-dirs network-manager-applet \
+	brightnessctl flatpak adw-gtk3-theme cascadia-code-nf-fonts \
+	tuigreet fuzzel qt6ct kvantum papirus-icon-theme-dark wlogout
 
-dnf install -y adw-gtk3-theme morewaita-icon-theme \
-    cascadia-code-nf-fonts rsms-inter-fonts
+dnf remove -y foot wmenu
 
-dnf install -y micro wl-clipboard systemd-container \
-    stow p7zip p7zip-plugins
+dnf install -y alacritty nautilus flatseal stow p7zip p7zip-plugins \
+    easyeffects pavucontrol gnome-disk-utility
 
-dnf install -y wireshark strace nmap httpie
+dnf install -y @development-tools httpie btop htop ansible azure-cli \
+	awscli2 opentofu wireshark strace nmap
 
-dnf install -y ansible azure-cli awscli2 opentofu htop \
-    @development-tools httpie btop gnome-console
+dnf install -y 'google-noto-*' --exclude='*vf-fonts*' --skip-broken
 
-dnf install -y flatseal transmission
-
-dnf autoremove -y
+sed -i 's/"agreety --cmd \/bin\/sh"/"tuigreet --remember --asterisks --cmd sway"/g' /etc/greetd/config.toml
+systemctl enable greetd
+systemctl set-default graphical.target
