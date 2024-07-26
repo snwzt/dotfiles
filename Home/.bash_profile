@@ -14,5 +14,8 @@ export XDG_STATE_HOME=${XDG_STATE_HOME:="$HOME/.local/state"}
 # add .local/bin to path
 export PATH="$HOME/.local/bin:$PATH"
 
+# electron wayland
+export ELECTRON_OZONE_PLATFORM_HINT=auto
+
 # qt
-export QT_QPA_PLATFORMTHEME="qt6ct"
+export QT_STYLE_OVERRIDE=kvantum

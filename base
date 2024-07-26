@@ -7,21 +7,25 @@ fi
 
 set -eux
 
-dnf install -y tmux sway waybar mako polkit-kde micro wl-clipboard \
-	power-profiles-daemon xdg-user-dirs network-manager-applet \
-	brightnessctl flatpak adw-gtk3-theme cascadia-code-nf-fonts \
-	tuigreet fuzzel qt6ct kvantum papirus-icon-theme-dark wlogout
+dnf remove -y firefox firefox-langpacks gnome-maps totem \
+    gnome-boxes gnome-weather rhythmbox baobab libreoffice-* \
+    gnome-connections gnome-logs mediawriter gnome-software \
+    simple-scan gnome-contacts gnome-abrt gnome-font-viewer \
+    gnome-tour gnome-calculator gnome-system-monitor 
 
-dnf remove -y foot wmenu
+dnf copr enable -y dusansimic/themes
 
-dnf install -y alacritty nautilus flatseal stow p7zip p7zip-plugins \
-    easyeffects pavucontrol gnome-disk-utility
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-dnf install -y @development-tools httpie btop htop ansible azure-cli \
-	awscli2 opentofu wireshark strace nmap
+dnf install -y adw-gtk3-theme morewaita-icon-theme \
+    cascadia-code-nf-fonts rsms-inter-vf-fonts kvantum
 
-dnf install -y 'google-noto-*' --exclude='*vf-fonts*' --skip-broken
+dnf install -y wl-clipboard systemd-container stow \
+    p7zip p7zip-plugins flatseal
 
-sed -i 's/"agreety --cmd \/bin\/sh"/"tuigreet --remember --asterisks --cmd sway"/g' /etc/greetd/config.toml
-systemctl enable greetd
-systemctl set-default graphical.target
+dnf install -y wireshark strace nmap httpie ansible \
+    azure-cli awscli2 opentofu @development-tools \
+    btop htop code
+
+dnf autoremove -y
