@@ -1,8 +1,0 @@
-{
-    "editor.fontFamily": "Cascadia Code NF",
-    "editor.fontSize": 16,
-    "terminal.integrated.fontSize": 16,
-    "workbench.startupEditor": "none",
-    "window.dialogStyle": "custom",
-    "window.titleBarStyle": "custom"
-}

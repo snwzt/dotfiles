@@ -1,31 +1,33 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 if [ "$EUID" -ne 0 ]; then
-    echo "Please run this script as root."
+    echo "Please run this as root."
     exit 1
 fi
 
-set -eux
+set -euxo pipefail
 
-dnf remove -y firefox firefox-langpacks gnome-maps totem \
-    gnome-boxes gnome-weather rhythmbox baobab libreoffice-* \
-    gnome-connections gnome-logs mediawriter gnome-software \
-    simple-scan gnome-contacts gnome-abrt gnome-font-viewer \
-    gnome-tour gnome-calculator gnome-system-monitor 
+dnf remove -y firefox gnome-maps totem nome-boxes gnome-weather rhythmbox baobab ptyxis evince \
+    gnome-connections gnome-logs mediawriter gnome-software simple-scan gnome-contacts gnome-abrt \
+    gnome-font-viewer gnome-tour gnome-calculator gnome-system-monitor gnome-boxes gnome-text-editor
 
-dnf copr enable -y dusansimic/themes
+dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm 
+dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-dnf install -y adw-gtk3-theme morewaita-icon-theme \
-    cascadia-code-nf-fonts rsms-inter-vf-fonts kvantum
+dnf swap -y ffmpeg-free ffmpeg --allowerasing
+dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
-dnf install -y wl-clipboard systemd-container stow \
-    p7zip p7zip-plugins flatseal
+dnf install -y adw-gtk3-theme cascadia-code-nf-fonts rsms-inter-vf-fonts gnome-tweaks chromium \
+    code
 
-dnf install -y wireshark strace nmap httpie ansible \
-    azure-cli awscli2 opentofu @development-tools \
-    btop htop code
+dnf install -y kitty @development-tools stow neovim wl-clipboard p7zip p7zip-plugins nmap ansible \
+    opentofu strace btop htop
 
 dnf autoremove -y
+
+# kitty for gnome hack
+ln -s /usr/bin/kitty /usr/bin/gnome-terminal

@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 if [ "$EUID" -eq 0 ]; then
     echo "Please don't run this as root."
     exit 1
 fi
 
-set -eux
+set -euxo pipefail
 
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.config/Code/User
@@ -14,11 +14,8 @@ rm $HOME/.bashrc $HOME/.bash_profile
 
 stow Home -t ~/
 
-sudo usermod -a -G wireshark $USER
-
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 . "$HOME/.asdf/asdf.sh"
-
 asdf plugin add golang
 asdf install golang latest
 asdf global golang latest
@@ -34,13 +31,12 @@ flatpak remote-modify flathub --enable
 
 flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
-flatpak install -y flathub com.obsproject.Studio io.github.seadve.Kooha \
-    com.github.wwmm.easyeffects com.rafaelmardojai.Blanket io.bassi.Amberol \
-    org.gnome.Showtime com.mattjakeman.ExtensionManager 
+flatpak install -y flathub com.github.wwmm.easyeffects com.mattjakeman.ExtensionManager \
+	com.github.tchx84.Flatseal org.gnome.World.Secrets de.haeckerfelix.Fragments \
+    com.obsproject.Studio io.github.seadve.Kooha
 
 flatpak install -y flathub com.valvesoftware.Steam com.modrinth.ModrinthApp \
-    com.brave.Browser org.onlyoffice.desktopeditors org.gnome.World.Secrets \
-    de.haeckerfelix.Fragments
+	org.gnome.Papers org.gnome.Showtime io.bassi.Amberol md.obsidian.Obsidian
 
 # desktop
 gnome-extensions disable background-logo@fedorahosted.org
@@ -69,16 +65,11 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 
 gsettings set org.gnome.desktop.interface clock-format '24h'
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-gsettings set org.gnome.desktop.interface icon-theme 'MoreWaita'
 gsettings set org.gnome.desktop.interface monospace-font-name 'Cascadia Code NF 13'
 gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
 gsettings set org.gnome.desktop.interface document-font-name 'Inter Variable 11'
 
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-terminal"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "alacritty"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
-
-gsettings set org.gnome.Terminal.Legacy.Settings headerbar false
-gsettings set org.gnome.Terminal.Legacy.Settings default-show-menubar false
-gsettings set org.gnome.Terminal.Legacy.Settings confirm-close false
