@@ -11,21 +11,14 @@ dnf remove -y firefox gnome-maps totem nome-boxes gnome-weather rhythmbox baobab
     gnome-connections gnome-logs mediawriter gnome-software simple-scan gnome-contacts gnome-abrt \
     gnome-font-viewer gnome-tour gnome-calculator gnome-system-monitor gnome-boxes gnome-text-editor
 
-dnf install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm 
-dnf install -y https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
 rpm --import https://packages.microsoft.com/keys/microsoft.asc
 echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
 
-dnf swap -y ffmpeg-free ffmpeg --allowerasing
-dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-
-dnf install -y adw-gtk3-theme cascadia-code-nf-fonts rsms-inter-vf-fonts gnome-tweaks chromium \
-    code
+dnf install -y adw-gtk3-theme cascadia-code-nf-fonts rsms-inter-vf-fonts gnome-tweaks code \
+    virt-manager
 
 dnf install -y kitty @development-tools stow neovim wl-clipboard p7zip p7zip-plugins nmap ansible \
-    opentofu strace btop htop
+    opentofu strace btop htop podman-compose
 
 dnf autoremove -y
 
