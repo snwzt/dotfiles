@@ -1,5 +1,5 @@
 [includeIf "gitdir:~/Documents/GitHub/"]
 path = ~/.gitconfig.personal
 
-[includeIf "gitdir:~/Documents/NotMde/"]
+[includeIf "gitdir:~/Documents/Notmde/"]
 path = ~/.gitconfig.side

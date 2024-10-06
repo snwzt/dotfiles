@@ -1,0 +1,7 @@
+{
+    "window.dialogStyle": "custom",
+    "window.titleBarStyle": "custom",
+    "editor.fontSize": 16,
+    "editor.fontFamily": "Cascadia Code NF",
+    "terminal.integrated.fontSize": 16
+}

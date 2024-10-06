@@ -1,0 +1,10 @@
+#!/bin/bash
+
+stow Home -t ~/
+
+ln -s /usr/bin/kitty ~/.local/bin/gnome-terminal
+
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+gsettings set org.gnome.desktop.interface monospace-font-name 'Cascadia Code NF 13'
+gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
+gsettings set org.gnome.desktop.interface document-font-name 'Inter Variable 11'

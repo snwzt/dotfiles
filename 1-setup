@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# system
+
+# stage 1
+
 if [ "$EUID" -eq 0 ]; then
     echo "Please don't run this as root."
     exit 1
@@ -7,12 +11,21 @@ fi
 
 set -euxo pipefail
 
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+rpm-ostree upgrade
+
+rpm-ostree override remove ptyxis gnome-software gnome-software-rpm-ostree \
+	firefox firefox-langpacks
+
+rpm-ostree install adw-gtk3-theme cascadia-code-nf-fonts rsms-inter-vf-fonts \
+    code stow neovim wl-clipboard podman-compose
+
+# stage 2
+
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/.config/Code/User
 rm -rf $HOME/.mozilla
-rm $HOME/.bashrc $HOME/.bash_profile
-
-stow Home -t ~/
 
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
 . "$HOME/.asdf/asdf.sh"
@@ -31,21 +44,24 @@ flatpak remote-modify flathub --enable
 
 flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
+flatpak install -y flathub org.gnome.Papers org.gnome.Showtime io.bassi.Amberol \
+    org.gnome.World.Secrets org.gnome.Calendar org.gnome.clocks org.gnome.Loupe
+
 flatpak install -y flathub com.github.wwmm.easyeffects com.mattjakeman.ExtensionManager \
-	com.github.tchx84.Flatseal org.gnome.World.Secrets de.haeckerfelix.Fragments \
-    	org.chromium.Chromium com.obsproject.Studio
+	com.github.tchx84.Flatseal de.haeckerfelix.Fragments io.github.zen_browser.zen \
+    com.obsproject.Studio md.obsidian.Obsidian
 
-flatpak install -y flathub com.valvesoftware.Steam com.modrinth.ModrinthApp \
-	org.gnome.Papers org.gnome.Showtime io.bassi.Amberol md.obsidian.Obsidian
+flatpak install -y flathub com.valvesoftware.Steam com.modrinth.ModrinthApp 
+	 
+# stage 3
 
-# desktop
 gnome-extensions disable background-logo@fedorahosted.org
 
 gsettings set org.gnome.shell.keybindings toggle-application-view []
 gsettings set org.gnome.shell.keybindings toggle-overview []
 gsettings set org.gnome.shell.keybindings toggle-quick-settings []
-
 gsettings set org.gnome.shell.app-switcher current-workspace-only true
+
 gsettings set org.gnome.mutter dynamic-workspaces false
 gsettings set org.gnome.mutter center-new-windows true
 
@@ -60,15 +76,10 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>c
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x']"
 gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
+gsettings set org.gnome.desktop.interface clock-format '24h'
+
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
-
-gsettings set org.gnome.desktop.interface clock-format '24h'
-gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Cascadia Code NF 13'
-gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
-gsettings set org.gnome.desktop.interface document-font-name 'Inter Variable 11'
-
 gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
 gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "kitty"
